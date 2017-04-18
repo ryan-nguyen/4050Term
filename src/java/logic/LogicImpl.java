@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+ //testing -ryan
 package logic;
 
 /**
@@ -42,7 +43,7 @@ public class LogicImpl {
 		response= res;
 		persist = new PersistImpl();
 	} //constructor
-        
+
     public int usernameToId(String username){
     ResultSet info = persist.checkIfUserExists(username);
     try{
@@ -56,7 +57,7 @@ public class LogicImpl {
         }
     return 0;
 }
-    
+
     public boolean register(String username, String password, String email, String street, String city, String state, String zip){
        ResultSet info = persist.checkIfUserExists(username);
        try {
@@ -76,7 +77,7 @@ public class LogicImpl {
     }
     /**
      * Takes info to get the current user, if either wrong, SQL throws exception
-     * @param username 
+     * @param username
      * @param password
      * @return true if login valid
      */
@@ -95,10 +96,10 @@ public class LogicImpl {
  						// TODO Auto-generated catch block
  						e.printStackTrace();
                                                  return false;
- 					} 
-                 return false; 
+ 					}
+                 return false;
         }//checkLoginInfo
-        
+
     /**
      * used to generate list of all games
      * @return full list of all games
@@ -144,7 +145,7 @@ public class LogicImpl {
 				gm.setPub(game.getString("publisher"));
 				gm.setStock(game.getInt("stock"));
 				gm.setId(game.getInt("id"));
-			} 
+			}
 		}
 		catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -152,7 +153,7 @@ public class LogicImpl {
 		}
 		return gm;
 	}//getGamesById
-	
+
 	/**
      * used to generate list of all games of a given genre
      * @param genre
@@ -233,7 +234,7 @@ public class LogicImpl {
 		}
 		return gameList;
 	}//getGamesByConsole
-    
+
     public ArrayList<String> getConsolesByGame(int game_id){
         consoleList.clear();
         ResultSet consoles = persist.getConsoles(game_id);
@@ -271,8 +272,8 @@ public class LogicImpl {
 
 		return userList;
 	}//getUser
-    
-   
+
+
     /**
      * used to import user into table
      * @param username
@@ -296,7 +297,7 @@ public class LogicImpl {
     public ArrayList<Review> getReviewsByGame(int game_id){
 		//get the result sets
 		ResultSet reviews = persist.getReviews(game_id);
-		ResultSet users = persist.getUser();			
+		ResultSet users = persist.getUser();
 		try {
 			while(reviews.next()){
 				Review rv = new Review();
@@ -322,7 +323,7 @@ public class LogicImpl {
 		}
 		return reviewList;
 	}//getReviewsByGame
-        
+
     /**
      * Used to add review to table
      * @param game_id
@@ -343,7 +344,7 @@ public class LogicImpl {
 	public ArrayList<Game> getCart(int user_id){
 		gameList.clear();
 		//get the result sets
-		ResultSet cart = persist.getCart(user_id);			
+		ResultSet cart = persist.getCart(user_id);
 		try{
 			while(cart.next()){
 				ResultSet games = persist.getGamesById(cart.getInt("game_id"));
@@ -372,7 +373,7 @@ public class LogicImpl {
 		}//trycatch
 		return gameList;
 	}//getCart
-        
+
     /**
      * used to add game per cart
      * @param user_id
@@ -390,11 +391,11 @@ public class LogicImpl {
             int update =persist.removeFromCart(user_id, game_id);
             return update;
         }
-    
+
     public void updateStock(int game_id){
         persist.updateStock(game_id);
     }
-    
+
     public void clearCart(int user_id){
         persist.clearCart(user_id);
     }
